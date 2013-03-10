@@ -5,16 +5,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
-import java.util.logging.Logger;
-
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.database.Cursor;
-import android.database.SQLException;
 
 
 /**
@@ -22,10 +18,6 @@ import android.database.SQLException;
  * This will create and manage our database of bars and their info
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
-	
-	private static String DB_PATH = "/data/data/uf_happy_hour/databases/";
-
-    private static String DB_NAME = "UFHappyHourDB.sqlite";
 	
 	// Update per change
 	static final String dbName = "UFHappyHourDB";
@@ -54,66 +46,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	Context context;
 	
 	public DatabaseHelper(Context context) {
-		super(context, DB_NAME, null, ver); 
+		super(context, dbName, null, ver); 
+		this.db = this.getWritableDatabase();
+		this.context = context;
 	}
-	
-	public boolean createDataBase() throws IOException
-    {
-
-        boolean dbExist = checkDataBase();
-
-        if (dbExist)
-        { // do nothing - database already exist
-            return false;
-        }
-        else
-        {
-            this.getReadableDatabase();
-            return true;
-        }
-
-    }
-
-    /**
-     * Check if the database already exist to avoid re-copying the file each
-     * time you open the application.
-     * 
-     * @return true if it exists, false if it doesn't
-     */
-    private boolean checkDataBase()
-    {
-        SQLiteDatabase checkDB = null;
-
-        try
-        {
-            String myPath = DB_PATH + DB_NAME;
-            checkDB = SQLiteDatabase.openDatabase(myPath, null,
-                    SQLiteDatabase.OPEN_READONLY);
-        }
-        catch (SQLiteException e)
-        {
-            //db doesn't exist
-        }
-
-        if (checkDB != null)
-        {
-            checkDB.close();
-        }
-
-        return checkDB != null;
-    }
-
-    /**
-     * @throws SQLException
-     */
-    public void openDataBase() throws SQLException
-    {
-        // Open the database
-        String myPath = DB_PATH + DB_NAME;
-        db = SQLiteDatabase.openDatabase(myPath, null,
-                SQLiteDatabase.OPEN_READWRITE);
-
-    }
 
 	/* (non-Javadoc)
 	 * @see android.database.sqlite.SQLiteOpenHelper#onCreate(android.database.sqlite.SQLiteDatabase)
@@ -154,7 +90,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			  */
 		
 		//Inserts pre-defined departments
-		insertBarInfo(db, context);  	
+		insertBarInfo(db);  	
 
 	}
 
@@ -176,11 +112,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		*/
 	}
 	
-	public void insertBarInfo(SQLiteDatabase db, Context context) {
+	public void insertBarInfo(SQLiteDatabase db) {
 		try {
-			// may need to do this another way...
 			AssetManager am = context.getAssets();
-			InputStream is = am.open("bars.txt");
+			InputStream is = am.open("bars");
 			InputStreamReader irs = new InputStreamReader(is);
 			BufferedReader br = new BufferedReader(irs);
 		
@@ -188,7 +123,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				ContentValues cv = new ContentValues();
 				String input = null;
 				
-				input = br.readLine();
+				input=br.readLine();
 				while (input != null) {
 					StringTokenizer st = new StringTokenizer(input, ",");
 					
@@ -214,7 +149,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			}
 		}
 		catch (IOException ex) {
-			ex.printStackTrace();
+			//ex.printStackTrace();
 		}
 	}
 	

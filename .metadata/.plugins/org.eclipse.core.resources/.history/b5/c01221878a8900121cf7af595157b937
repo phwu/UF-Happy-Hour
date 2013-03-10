@@ -1,0 +1,9 @@
+package com.example.uf_happy_hour;
+
+public class Bar {
+	private String name;
+	private String address;
+	private int phoneNumber;
+	private String venueType;
+
+}
