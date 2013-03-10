@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.util.logging.Logger"/>
+<fullyQualifiedTypeName name="android.database.sqlite.SQLiteException"/>
+<fullyQualifiedTypeName name="android.database.SQLException"/>
+</qualifiedTypeNameHistroy>

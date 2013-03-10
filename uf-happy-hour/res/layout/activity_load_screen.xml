@@ -59,6 +59,11 @@
             android:text="Hello World!"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
+        <AnalogClock
+            android:id="@+id/analogClock1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
     </FrameLayout>
 
 </FrameLayout>

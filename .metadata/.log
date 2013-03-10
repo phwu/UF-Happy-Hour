@@ -83,3 +83,6 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64
 
 !ENTRY org.eclipse.ui 4 4 2013-03-10 08:48:49.894
 !MESSAGE Invalid preference page path: XML Syntax
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-03-10 10:41:28.490
+!MESSAGE Failed to load properties file for project 'SQLiteExample'

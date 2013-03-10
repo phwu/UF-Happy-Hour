@@ -1,0 +1,178 @@
+package com.example.uf_happy_hour;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.util.Date;
+
+import android.content.Context;
+import android.widget.Toast;
+import android.util.Log;
+
+/**
+ * @author Rich
+ * 
+ */
+public class Logger
+{
+
+    public static String logName = "UFHHLog.log";
+    public static String logFile = "/data/data/uf_happy_hour/files/" + logName;
+    public static org.acra.ErrorReporter reporter;
+    /**
+     * Default Constructor for logging class sets the static class in Logger and
+     * deletes the current logfile
+     */
+    public static void deleteLogFile()
+    {
+
+        File deleteFile = new File(logFile);
+
+        if (!deleteFile.delete())
+        {
+            android.util.Log.d("Failed Deletion",
+                    "Could not delete previous Log File.");
+
+        }
+        reporter = new org.acra.ErrorReporter();
+    }
+
+    /**
+     * Log a debugging message to console and to the logfile
+     * 
+     * @param args
+     *            message to be logged
+     */
+    public static void d(Object args)
+    {
+        Log.d("Debug", args.toString());
+        WriteToLogFile(args.toString());
+    }
+
+    /**
+     * Log a debugging message to console and to the logfile
+     * 
+     * @param t
+     *            the thrown exception
+     * @param args
+     *            message to be logged
+     */
+    public static void d(Throwable t, Object args)
+    {
+        Log.d("Debug", (String) args, t);
+        WriteToLogFile(t + "\n" + args);
+        
+    }
+
+    /**
+     * Log an error message to console and to the logfile
+     * 
+     * @param args
+     *            message to be logged
+     */
+    public static void e(Object args)
+    {
+        Log.e("Error", args.toString());
+        WriteToLogFile(args.toString());
+    }
+
+    /**
+     * Log an error message to console and to the logfile
+     * 
+     * @param t
+     *            the thrown exception
+     * @param args
+     *            message to be logged
+     */
+    public static void e(Throwable t, Object args)
+    {
+        Log.e("Error", (String) args, t);
+        WriteToLogFile(t + "\n" + args);
+        
+    }
+
+    /**
+     * Log a warning message to console and to the logfile
+     * 
+     * @param args
+     *            message to be logged
+     */
+    public static void w(Object args)
+    {
+        Log.w("Warn", (String) args);
+        WriteToLogFile((String) args);
+    }
+
+    /**
+     * Log a warning message to console and to the logfile
+     * 
+     * @param t
+     *            the thrown exception
+     * @param args
+     *            message to be logged
+     */
+    public static void w(Throwable t, Object args)
+    {
+        Log.e("Warn", (String) args, t);
+        WriteToLogFile(t + "\n" + args);
+        
+    }
+
+    /**
+     * Displays a toast popup of a message of choice Must be passed VALID
+     * Context via a this call of the current activity
+     * 
+     * @param theContext
+     *            current context of the application
+     * @param message
+     *            message to be displayed
+     * @param lengthOfToast
+     *            length of the toast popup
+     */
+    public static void ToastMessage(Context theContext, String message,int lengthOfToast)
+    {
+
+        Toast.makeText(theContext, message, lengthOfToast).show();
+    }
+
+    // TODO: Unused method. Delete if really unneeded.
+    /*
+     * private String ReadFile(Context theContext,String file) throws
+     * IOException { FileInputStream fis = null; InputStreamReader isr = null;
+     * 
+     * String data = null; fis = theContext.openFileInput(file); isr = new
+     * InputStreamReader(fis); char[] inputBuffer = new char[fis.available()];
+     * isr.read(inputBuffer); data = new String(inputBuffer); isr.close();
+     * fis.close(); return data; }
+     */
+
+    public static void SendEmail(String tag, String Message)
+    {
+        org.acra.ErrorReporter report = org.acra.ErrorReporter.getInstance();
+        
+        
+        report.putCustomData(tag, Message);
+        report.handleSilentException(new Exception(Message));
+
+    }
+
+    private static void WriteToLogFile(String Message)
+    {
+        Date now = new Date();
+
+        try
+        {
+
+            BufferedWriter bos = new BufferedWriter(new FileWriter(logFile),1024);
+            
+            bos.write("[" + now.toLocaleString() + "] " + Message);
+            bos.flush();
+            bos.close();
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+    }
+
+}
