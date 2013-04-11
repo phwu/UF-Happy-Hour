@@ -1,5 +1,8 @@
 package com.example.uf_happy_hour;
 
+
+// Make Bar similar to Contacts Class
+
 public class Bar {
 	private String name;
 	private String address;
