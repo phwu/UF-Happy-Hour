@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">uf-happy-hour</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="app_name">UF Happy Hour</string>
+    <string name="dummy_content">DUMMY\nCONTENTman</string>
     <string name="dummy_button">Dummy Button</string>
+    <string name="test_header">Happy Hours on: Thursday, 3/28/13</string>
 
 </resources>
