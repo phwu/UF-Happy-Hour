@@ -3,20 +3,22 @@ package com.example.uf_happy_hour;
 
 import java.util.Vector;
 
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings.Global;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
+
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 
 public class MainActivity extends Activity {
@@ -71,12 +73,27 @@ public class MainActivity extends Activity {
     	ListView listView2 = (ListView) findViewById(R.id.ListViewId);
     	//listView2.setAdapter(new ListViewAdapter(this, R.layout.main_text_view,
     		//    	hh_times));
+    	listView.setClickable(true);
     	
+    	listView.setOnItemClickListener(BarClick);
     	
     	//Adding a header adds a section section header
     	
     	//*/
     }
+    
+    private OnItemClickListener BarClick = new OnItemClickListener()
+    {
+    	public void onItemClick(AdapterView<?> parent, View view, int position,
+    			long id)
+    	{
+    		
+    		 Intent intent = new Intent();
+    	     intent.setClass(MainActivity.this, ProfilePage.class);
+    	     
+    	     startActivity(intent);
+		}
+    };
     
     
     //Adapter 
