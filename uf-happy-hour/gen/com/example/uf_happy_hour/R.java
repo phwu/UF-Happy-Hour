@@ -22,15 +22,24 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int black_overlay=0x7f040000;
     }
     public static final class drawable {
-        public static final int beer1=0x7f020000;
-        public static final int beer2=0x7f020001;
-        public static final int bjj=0x7f020002;
-        public static final int dasda=0x7f020003;
-        public static final int ic_launcher=0x7f020004;
-        public static final int icon=0x7f020005;
-        public static final int icon2=0x7f020006;
-        public static final int office_building=0x7f020007;
-        public static final int salts=0x7f020008;
+        public static final int _app_icon=0x7f020000;
+        public static final int _app_icon2=0x7f020001;
+        public static final int beer1=0x7f020002;
+        public static final int beer2=0x7f020003;
+        public static final int bjj=0x7f020004;
+        public static final int blue=0x7f020005;
+        public static final int blue3=0x7f020006;
+        public static final int dasda=0x7f020007;
+        public static final int gradient=0x7f020008;
+        public static final int gradient_new=0x7f020009;
+        public static final int hello=0x7f02000a;
+        public static final int ic_launcher=0x7f02000b;
+        public static final int icon=0x7f02000c;
+        public static final int icon2=0x7f02000d;
+        public static final int new_lo=0x7f02000e;
+        public static final int office_building=0x7f02000f;
+        public static final int salts=0x7f020010;
+        public static final int x=0x7f020011;
     }
     public static final class id {
         public static final int ListViewId=0x7f070003;
@@ -40,6 +49,9 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int fullscreen_content_controls=0x7f070001;
         public static final int header_layout_root=0x7f070007;
         public static final int hh_time=0x7f070006;
+        public static final int profile_cell_root=0x7f070008;
+        public static final int sample_title=0x7f07000a;
+        public static final int static_map=0x7f070009;
         public static final int testText=0x7f070005;
     }
     public static final class layout {
@@ -49,12 +61,14 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int main_header=0x7f030003;
         public static final int main_text_view=0x7f030004;
         public static final int profile_base=0x7f030005;
-        public static final int splash_screen=0x7f030006;
+        public static final int profile_cell_info=0x7f030006;
+        public static final int splash_screen=0x7f030007;
     }
     public static final class string {
         public static final int app_name=0x7f050000;
         public static final int dummy_button=0x7f050002;
         public static final int dummy_content=0x7f050001;
+        public static final int image_text=0x7f050004;
         public static final int test_header=0x7f050003;
     }
     public static final class style {

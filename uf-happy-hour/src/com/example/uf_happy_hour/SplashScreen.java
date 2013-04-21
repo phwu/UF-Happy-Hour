@@ -20,7 +20,7 @@ import android.widget.Toast;
 public class SplashScreen extends Activity {
 	
     // properties for splash screen
-    private final double _splashTime = 1500; //originally 300
+    private final double _splashTime = 2000; //originally 300
     private final Activity activity = this;
 	
 	@Override
