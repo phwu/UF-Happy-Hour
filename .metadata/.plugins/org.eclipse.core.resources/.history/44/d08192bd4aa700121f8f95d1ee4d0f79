@@ -1,0 +1,173 @@
+package com.example.uf_happy_hour;
+
+import java.util.ArrayList;
+import java.util.List;
+ 
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+ 
+
+// TAILOR DATABASE HELPER TO OUR NEEDS by using already made variables and queries in DatabaseHelperV1
+
+// SECOND PRIORITY:
+// Still need to implement a check system for database updates
+// see DooDooMaps https://code.google.com/p/project-deuces/source/browse/trunk/DooDooMaps/src/doodoo/maps/SplashScreen.java
+// in  LoadingTask class 
+
+public class DatabaseHelper extends SQLiteOpenHelper {
+ 
+    // All Static variables
+    // Database Version
+    private static final int DATABASE_VERSION = 1;
+ 
+    // Database Name
+    private static final String DATABASE_NAME = "UFHappyHourDB";
+ 
+    // Contacts table name
+    private static final String TABLE_BARS = "BarsInfo";
+ 
+    // Table Columns names
+ 
+    static final String BarsTable = "BarsTable";
+    
+	static final String colName = "BarName";
+	static final String colAddress = "BarAddress";
+	static final String colPhone = "PhoneNumber";
+	static final String colType = "TypeOfVenue";
+	static final String colHoursOpen = "HoursOpen";
+	static final String colSpecials = "Specials";
+	static final String colAgeLimit = "AgeLimit";
+	static final String colFood = "Food";
+	static final String colFullBar = "FullBar";
+	
+    public DatabaseHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+ 
+    // Creating Tables
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        String CREATE_BARS_TABLE = "CREATE TABLE " + TABLE_BARS + "("
+                + colName + " TEXT PRIMARY KEY," + colAddress + " TEXT,"
+                + colPhone + " INTEGER," + colType + " TEXT," 
+                + colHoursOpen + " TEXT," + colSpecials + " TEXT," 
+                + colAgeLimit + " INTEGER," + colFood + " INTEGER,"
+                + colFullBar + "TEXT" 
+                + ")";
+        db.execSQL(CREATE_BARS_TABLE);
+    }
+ 
+    // Upgrading database
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // Drop older table if existed
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_BARS);
+ 
+        // Create tables again
+        onCreate(db);
+    }
+ 
+    /**
+     * All CRUD(Create, Read, Update, Delete) Operations
+     */
+ 
+    // Adding new bar
+    void addBar(Bar bar) {
+        SQLiteDatabase db = this.getWritableDatabase();
+ 
+        ContentValues values = new ContentValues();
+        values.put(colName, bar.getName()); // Bar Name
+        values.put(colAddress, bar.getAddress());
+        values.put(colPhone, bar.getPhoneNumber()); 
+        values.put(colType, bar.getVenue());
+        values.put(colHoursOpen, bar.getHoursOpen());
+        values.put(colSpecials, bar.getSpecials());
+        values.put(colAgeLimit, bar.getAgeReq());
+        values.put(colFood, bar.getFood());
+        values.put(colFullBar, bar.getFullBar());
+ 
+        // Inserting Row
+        db.insert(TABLE_BARS, null, values);
+        db.close(); // Closing database connection
+    }
+ 
+    // Getting single contact
+    Bar getBar(String name) {
+        SQLiteDatabase db = this.getReadableDatabase();
+ 
+        Cursor cursor = db.query(TABLE_BARS, new String[] { colName,
+                colAddress, colPhone, colType, colHoursOpen,
+                colSpecials, colAgeLimit, colFood, colFullBar}, colName + "=?",
+                new String[] { String.valueOf(name) }, null, null, null, null);
+        if (cursor != null)
+            cursor.moveToFirst();
+ 
+        Bar bar = new Bar(cursor.getString(0), cursor.getString(1), Integer.parseInt(cursor.getString(2)),
+        		cursor.getString(3), cursor.getString(4), cursor.getString(5), Integer.parseInt(cursor.getString(6)), 
+        		Integer.parseInt(cursor.getString(7)), cursor.getString(8));
+        
+        // return contact
+        return contact;
+    }
+ 
+    // Getting All Contacts
+    public List<Contact> getAllContacts() {
+        List<Contact> contactList = new ArrayList<Contact>();
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_CONTACTS;
+ 
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+ 
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Contact contact = new Contact();
+                contact.setID(Integer.parseInt(cursor.getString(0)));
+                contact.setName(cursor.getString(1));
+                contact.setPhoneNumber(cursor.getString(2));
+                // Adding contact to list
+                contactList.add(contact);
+            } while (cursor.moveToNext());
+        }
+ 
+        // return contact list
+        return contactList;
+    }
+ 
+    // Updating single contact
+    public int updateContact(Contact contact) {
+        SQLiteDatabase db = this.getWritableDatabase();
+ 
+        ContentValues values = new ContentValues();
+        values.put(KEY_NAME, contact.getName());
+        values.put(KEY_PH_NO, contact.getPhoneNumber());
+ 
+        // updating row
+        return db.update(TABLE_CONTACTS, values, KEY_ID + " = ?",
+                new String[] { String.valueOf(contact.getID()) });
+    }
+ 
+    // Deleting single contact
+    public void deleteContact(Contact contact) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_CONTACTS, KEY_ID + " = ?",
+                new String[] { String.valueOf(contact.getID()) });
+        db.close();
+    }
+ 
+    // Getting contacts Count
+    public int getContactsCount() {
+        String countQuery = "SELECT  * FROM " + TABLE_CONTACTS;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        cursor.close();
+ 
+        // return count
+        return cursor.getCount();
+    }
+ 
+}

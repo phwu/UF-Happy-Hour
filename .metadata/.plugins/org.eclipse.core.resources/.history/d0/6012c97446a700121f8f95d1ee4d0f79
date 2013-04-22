@@ -1,0 +1,46 @@
+package com.example.uf_happy_hour;
+
+
+// Make Bar similar to Contacts Class
+
+public class Bar {
+	private String name;
+	private String address;
+	private int phoneNumber;
+	private String venueType;
+	private String hoursOpen;
+	private int ageReq;
+	private boolean food;
+	private String fullBar;
+	
+	public Bar() {
+		this.name = "Error";
+		this.address = "nil";
+		this.phoneNumber = -1;
+		this.venueType = "";
+		this.hoursOpen = "5pm-7pm";
+		this.ageReq = 21;
+		this.food = false;
+		this.fullBar = "Beer/Wine only";
+	}
+	
+	public void Bar(String name, String address, int phoneNumer, String venue, String hoursOpen, int ageReq, boolean food, String fullBar) {
+		this.name = name;
+		this.address = address;
+		this.phoneNumber = phoneNumber;
+		this.venueType = venue;
+		this.hoursOpen = hoursOpen;
+		this.ageReq = ageReq;
+		this.food = food;
+		this.fullBar = fullBar;
+	}
+	
+	public Bar getBarInfo() {
+		return this;
+	}
+	
+	public String toString() {
+		return "";
+	}
+
+}

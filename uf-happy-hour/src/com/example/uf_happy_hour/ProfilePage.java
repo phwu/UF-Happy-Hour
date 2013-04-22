@@ -28,8 +28,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class ProfilePage extends ListActivity {
+	
+	String barName;
 	
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -37,37 +40,15 @@ public class ProfilePage extends ListActivity {
     	super.onCreate(savedInstanceState);
     	setContentView(R.layout.profile_base);
     	
+    	Bundle bundle = this.getIntent().getExtras();
+    	barName = bundle.getString("barName");
+    	showToast("bar: " + barName);
+    	
     	// Set individual cells
         ListView lv = getListView();
         LayoutInflater inflater = getLayoutInflater();
         View v = inflater.inflate(R.layout.profile_cell_info, (ViewGroup) findViewById(R.id.profile_cell_root));
-        lv.addHeaderView(v, null, false);
-        
-        //Get static map from URL
-        /*
-        Bitmap bb;
-        try {
-        	showToast("lehgo");
-        	URL static_map_url;
-		
-			static_map_url = new URL("http://maps.googleapis.com/maps/api/staticmap?center=Berkeley,CA&zoom=14&size=400x400&sensor=false");
-		
-			 bb = BitmapFactory.decodeStream(static_map_url.openConnection().getInputStream());
-			 
-		     //ImageView image = (ImageView) findViewById(R.id.static_map);
-   	         //image.setImageBitmap(bb);
-   	      showToast("lehgoing");
-        }
-        catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        //profile_photo.setImageBitmap(bb); 
-        catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        */
+        lv.addHeaderView(v, null, false);       
         
         // Programatically fill imageview
         
@@ -87,9 +68,13 @@ public class ProfilePage extends ListActivity {
         			"center=9+West+University+Ave+Gainesville,FL&zoom=14&size=400x400&sensor=false");
         
  
-        // Populate
+        // Populate test data
         String listItems[] = {"List Item One", "List Item Two", "List Item Three", "List Item Four", "List Item Five"};
         lv.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1, listItems));
+        
+     	//Set header text
+    	TextView t = (TextView) findViewById(R.id.header);
+    	t.setText(barName + " Date goes here");
     	
     }
     

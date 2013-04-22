@@ -2,6 +2,7 @@ package com.example.uf_happy_hour;
 
 
 import java.io.IOException;
+import java.util.List;
 
 /*
 import doodoo.maps.DatabaseHelper;
@@ -14,6 +15,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.widget.Toast;
 
@@ -34,6 +36,8 @@ public class SplashScreen extends Activity {
 		this.setTitle(" Loading...");
 		
 		new LoadingTask().execute();	
+		
+		
     }
 	
 	 private class LoadingTask extends AsyncTask<Void, Integer, Integer> 
@@ -46,7 +50,7 @@ public class SplashScreen extends Activity {
 	     protected void onPostExecute(Integer result) 
 	     {
 		    finish();
-		    startActivity(new Intent(activity, MainActivity.class));
+		    startActivity(new Intent(activity, Menu.class));
 	     }
 
 	    @Override
